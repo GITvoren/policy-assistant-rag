@@ -1,6 +1,9 @@
+# --- stdlib ---
 import re
 
+# --- third-party ---
 import chromadb
+from chromadb.errors import NotFoundError
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
@@ -8,6 +11,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pypdf import PdfReader
 
+# --- local ---
 from config import CHROMA_DIR, COLLECTION_NAME, DOCS_DIR, EMBEDDING_MODEL
 
 load_dotenv()
@@ -53,7 +57,7 @@ def store_chunks(chunks: list[Document]) -> None: #chunks in, nothing out.(vecto
     # Start fresh every run so re-running never creates duplicates
     try:
         client.delete_collection(COLLECTION_NAME)
-    except Exception:
+    except NotFoundError:
         pass  # first run: nothing to delete yet
 
     vectorstore = Chroma(
@@ -74,5 +78,3 @@ if __name__ == "__main__":
     chunks = split_pages(pages)
     print(f"{len(pages)} pages -> {len(chunks)} chunks")
     store_chunks(chunks)
-"""     for c in chunks:
-        print(c.metadata, len(c.page_content), repr(c.page_content[:60])) """
