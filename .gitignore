@@ -7,3 +7,5 @@ documentation
 .vscode
 chroma_db/
 chroma_db
+
+__pycache__/
