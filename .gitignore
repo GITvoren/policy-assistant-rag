@@ -5,3 +5,5 @@ documentation
 .env
 .vscode/
 .vscode
+chroma_db/
+chroma_db
