@@ -17,7 +17,7 @@ HEADER_RE = re.compile(
 )
 
 
-# Stage 1 Load + Clean
+# Load + Clean
 def clean_page_text(text: str) -> str: # type hint. meaning: takes a string, returns a string (optional)
     text = HEADER_RE.sub("", text, count=1)   # drop header + "Page N" line
     text = text.replace("\x7f", "-")          # fix bullet glyph
@@ -34,17 +34,19 @@ def load_pages() -> list[Document]: # returns a list(array in js) of the pages o
             pages.append(
                 Document(
                     page_content=text,
-                    metadata={"source": pdf_path.name, "page": page_number},
+                    metadata={"source": pdf_path.name, "page": page_number}, # for citation
                 )
             )
     return pages
 
-# Stage 2 Chunking
+# Chunking
 def split_pages(pages: list[Document]) -> list[Document]: #takes list of pages, returns list of splitted pages(chunks)
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
     return splitter.split_documents(pages)
 
-def store_chunks(chunks: list[Document]) -> None: #chunks in, nothing out.(permanent in vector database)
+
+# embedding (chunks -> vector) and storing of vectors in vector db
+def store_chunks(chunks: list[Document]) -> None: #chunks in, nothing out.(vectors stay in vector database)
      
     client = chromadb.PersistentClient(path=str(CHROMA_DIR))
 

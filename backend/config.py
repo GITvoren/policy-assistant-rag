@@ -13,3 +13,5 @@ COMPANY_NAME = "Tradewind Global, Inc."
 CHAT_MODEL = "gpt-5.6-luna"
 EMBEDDING_MODEL = "text-embedding-3-small"
 COLLECTION_NAME = "tradewind_policies"
+
+TOP_K = 4
