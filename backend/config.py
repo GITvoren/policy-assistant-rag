@@ -15,3 +15,5 @@ EMBEDDING_MODEL = "text-embedding-3-small"
 COLLECTION_NAME = "tradewind_policies"
 
 TOP_K = 4
+
+NOT_FOUND_MESSAGE = "This isn't covered in the Tradewind policy documents I have."

@@ -1,16 +1,24 @@
 # --- stdlib ---
 import re
 
+# --- third-party ---
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
-from langchain_openai import OpenAIEmbeddings
-from pydantic import BaseModel, Field
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from pydantic import BaseModel, Field
 
+# --- local ---
+from config import (
+    CHAT_MODEL,
+    CHROMA_DIR,
+    COLLECTION_NAME,
+    EMBEDDING_MODEL,
+    NOT_FOUND_MESSAGE,
+    TOP_K,
+)
 
-from config import CHAT_MODEL, CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL, TOP_K
 from prompts import SYSTEM_PROMPT
 
 load_dotenv()
@@ -68,5 +76,92 @@ def generate(user_message: str) -> MeridianAnswer: # system prompt + blocks in, 
         [SystemMessage(content=SYSTEM_PROMPT), HumanMessage(content=user_message)]
     )
 
+#strip whitespace
 def normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
+
+# fix citation bool going true on empty string
+# hallucination guardrail
+def quote_is_verbatim(quote: str, chunk_text: str) -> bool:
+    clean_quote = normalize(quote)
+    if not clean_quote:
+        return False
+    return clean_quote in normalize(chunk_text)
+
+# python -c "from rag import quote_is_verbatim as v; print(v('per night', 'limit is 320 per\nnight.')); print(v('per day', 'limit is 320 per\nnight.')); print(v('   ', 'anything'))"
+
+
+# Keep only citations whose quote appears verbatim in the cited chunk, grouped by excerpt
+def verify_citations(
+    answer: MeridianAnswer, results: list[tuple[Document, float]]
+) -> dict[int, list[str]]:
+    verified: dict[int, list[str]] = {}
+    for citation in answer.citations:
+        if not 1 <= citation.excerpt_id <= len(results):
+            continue
+        chunk = results[citation.excerpt_id - 1][0]
+        if not quote_is_verbatim(citation.quote, chunk.page_content):
+            continue
+        quotes = verified.setdefault(citation.excerpt_id, [])
+        clean_quote = normalize(citation.quote)
+        if clean_quote not in quotes:
+            quotes.append(clean_quote)
+    return verified
+
+# Renumber [n] markers by order of first appearance; drop markers with no verified quote.
+# Returns the new text and the old excerpt ids in their new order (order[0] is behind [1]).
+def renumber_markers(
+    answer_text: str, verified: dict[int, list[str]]
+) -> tuple[str, list[int]]:
+    order: list[int] = []
+
+    def replace(match: re.Match[str]) -> str:
+        space, old_id = match.group(1), int(match.group(2))
+        if old_id not in verified:  # no verified quote: delete marker
+            return ""
+        if old_id not in order:
+            order.append(old_id) # first time seen: remember it
+        return f"{space}[{order.index(old_id) + 1}]" # new number = position in order
+
+    new_text = re.sub(r"(\s?)\[(\d+)\]", replace, answer_text)
+    return new_text.strip(), order
+
+
+# Build the source-card data for the UI, in the new marker order
+def build_sources(
+    order: list[int],
+    verified: dict[int, list[str]],
+    results: list[tuple[Document, float]],
+) -> list[dict]:
+    sources: list[dict] = []
+    for new_number, old_id in enumerate(order, start=1):
+        chunk = results[old_id - 1][0]
+        sources.append(
+            {
+                "number": new_number,
+                "source": chunk.metadata["source"],
+                "page": chunk.metadata["page"],
+                "quotes": verified[old_id],
+            }
+        )
+    return sources
+
+# The one entry point the API calls: question in, plain dict out
+def ask(question: str) -> dict:
+    results = retrieve(question)
+    answer = generate(build_user_message(question, results))
+
+    if not answer.found:
+        return {"found": False, "answer": NOT_FOUND_MESSAGE, "sources": []}
+
+    verified = verify_citations(answer, results)
+    text, order = renumber_markers(answer.answer, verified)
+
+    if not order:
+        return {"found": False, "answer": NOT_FOUND_MESSAGE, "sources": []}
+
+    return {
+        "found": True,
+        "answer": text,
+        "sources": build_sources(order, verified, results),
+    }
