@@ -23,8 +23,8 @@ export default function Sidebar() {
       <hr className="sidebar__divider" />
 
       <p className="sidebar__note">
-        Meridian answers only from the documents below. If it isn&apos;t in
-        there, it says so.
+        Meridian answers based on the documents below. If the information isn&apos;t covered, it lets you know.
+
       </p>
 
       <h2 className="sidebar__label">

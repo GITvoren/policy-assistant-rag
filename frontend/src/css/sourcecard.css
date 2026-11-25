@@ -1,0 +1,81 @@
+.source-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  max-width: 880px;
+  overflow: hidden;
+}
+
+.source-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.source-card__number {
+  color: var(--blue);
+  font-size: 18px;
+}
+
+.source-card__file {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.source-card__page {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.source-card__quotes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 20px 16px;
+}
+
+.source-card__quote {
+  margin: 0;
+  padding: 12px 16px;
+  background: var(--surface-soft);
+  border-left: 4px solid var(--blue);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.source-card__chevron {
+  margin-left: auto;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--blue);
+  border-bottom: 2px solid var(--blue);
+  transform: rotate(45deg);
+}
+
+.source-card__header[aria-expanded="true"] .source-card__chevron {
+  transform: rotate(-135deg);
+}
+
+.source-card__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.source-card__body--open {
+  grid-template-rows: 1fr;
+}
+
+.source-card__clip {
+  min-height: 0;
+  overflow: hidden;
+}

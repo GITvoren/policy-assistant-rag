@@ -1,0 +1,17 @@
+.error-message {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.error-message__text {
+  margin: 0;
+  max-width: 880px;
+  padding: 14px 20px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--text-muted);
+  border-radius: var(--radius-card);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+}
