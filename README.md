@@ -154,7 +154,7 @@ policy-assistant-rag/
 
 - **Backend:** complete and tested, including a repeated-run check of the citation-marker fix.
 - **Frontend:** complete. Chat flow, answer and source cards, not-found card, starter questions, loading and error states, and the mobile layout are all working.
-- **Next:** hosting.
+- **Next:** hosting...
 
 ## Limitations
 
