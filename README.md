@@ -1,10 +1,18 @@
-# Meridian: AI-Powered Policy Assistant with Verified Citations
 
-Meridian is a policy and onboarding assistant for the fictional company **Tradewind Global, Inc.** New hires ask questions in plain language, and Meridian answers **only from five loaded policy PDFs**. Every answer carries numbered citations that point to a source card with the filename, the page number, and a verbatim quote that the backend has checked against the document text. If the answer isn't in the documents, Meridian says so instead of guessing.
+# Meridian: Retrieval-Augmented Generation (RAG) Policy Assistant
+
+**Retrieval-Augmented Generation (RAG) · LLM Integration · Vector Database Architecture · Verified AI Citations**
+
+Meridian is an AI-powered policy and onboarding assistant built using a **Retrieval-Augmented Generation (RAG) architecture**. It integrates large language models with semantic search and Chroma vector storage to retrieve relevant information from policy documents and generate context-aware answers grounded in source material.
+
+Built with **Python, LangChain, OpenAI, and ChromaDB**, Meridian features a document ingestion pipeline, embedding generation, semantic retrieval, structured LLM responses, and programmatic citation verification to ensure answers remain traceable to their original sources.
+
+Rather than relying on the language model's general knowledge, Meridian answers exclusively from five loaded policy PDFs. Every response includes numbered citations linked to source cards containing the original filename, page number, and verified document excerpts. When relevant information cannot be found, the system explicitly indicates that instead of generating an unsupported answer.
 
 > Portfolio demo. All documents are fictional.
 
 [Live Demo](https://meridian-policy-assistant.vercel.app/)
+
 
 
 ## Why it exists
