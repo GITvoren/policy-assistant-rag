@@ -4,6 +4,8 @@ Meridian is a policy and onboarding assistant for the fictional company **Tradew
 
 > Portfolio demo. All documents are fictional.
 
+[Live Demo](https://meridian-policy-assistant.vercel.app/)
+
 
 ## Why it exists
 
@@ -152,9 +154,9 @@ policy-assistant-rag/
 
 ## Status
 
-- **Backend:** complete and tested, including a repeated-run check of the citation-marker fix.
+- **Backend:** complete and tested, including a repeated-run check of the citation-marker fix. Flask-Limiter rate limiting, and OpenAI API spend caps.
 - **Frontend:** complete. Chat flow, answer and source cards, not-found card, starter questions, loading and error states, and the mobile layout are all working.
-- **Next:** hosting...
+- **Hosting** complete. Frontend deployed on Vercel and backend deployed on Railway.
 
 ## Limitations
 
