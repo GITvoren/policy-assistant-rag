@@ -25,14 +25,22 @@ load_dotenv()
 
 # Pydantic Shaping / Schema Modeling
 
+
 class Citation(BaseModel):
-    excerpt_id: int = Field(description="The id of the excerpt the quote was copied from.")
+    excerpt_id: int = Field(
+        description="The id of the excerpt the quote was copied from. "
+        "Must equal the [n] marker in the answer that this quote supports."
+    )
     quote: str = Field(description="A short verbatim quote copied exactly from that excerpt.")
 
 class MeridianAnswer(BaseModel):
     found: bool = Field(description="True only if an excerpt states a rule that answers the question.")
-    answer: str = Field(description="The answer with [1], [2] markers, or one short not-found sentence.")
-    citations: list[Citation] = Field(description="One entry per marker used. Empty if found is false.")
+    answer: str = Field(
+        description="The answer with [n] markers, where n is the id of the excerpt "
+        "the claim comes from. Use the excerpt's own id; never renumber. "
+        "Or one short not-found sentence."
+    )
+    citations: list[Citation] = Field(description="One entry per quote used. Empty if found is false.")
 
 
 vectorstore = Chroma(
