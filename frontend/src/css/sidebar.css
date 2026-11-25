@@ -1,0 +1,94 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+.sidebar__company {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.sidebar__brand {
+  margin: 0;
+}
+
+.sidebar__logo {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
+
+.sidebar__tagline {
+  margin: 8px 0 0;
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+.sidebar__divider {
+  width: 100%;
+  margin: 24px 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.sidebar__note {
+  margin: 0 0 24px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.sidebar__label {
+  margin: 0 0 10px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.sidebar__docs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar__doc {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sidebar__doc:hover,
+.sidebar__doc:focus-visible {
+  background: var(--surface-active);
+  color: var(--blue);
+}
+
+.sidebar__pages {
+  color: var(--text-muted);
+}
+
+.sidebar__footer {
+  margin: auto 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.sidebar__hint {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-muted);
+}

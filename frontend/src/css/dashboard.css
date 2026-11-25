@@ -1,0 +1,26 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 16px;
+  height: 100vh;
+  padding: 16px;
+}
+
+.dashboard__main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+.dashboard__messages {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
