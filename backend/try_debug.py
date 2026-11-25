@@ -1,7 +1,8 @@
 # --- local ---
 from rag import build_user_message, generate, renumber_markers, retrieve, verify_citations
+import sys
 
-QUESTION = "How many vacations leave do we have?"
+QUESTION = " ".join(sys.argv[1:]) or "How many vacations leave do we have?"
 
 results = retrieve(QUESTION)
 print("RETRIEVED:")

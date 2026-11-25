@@ -23,6 +23,9 @@ OUTPUT_FORMAT = """OUTPUT RULES
 - For every marker you use, add one entry to "citations" with that excerpt_id and a "quote".
 - Each quote must be copied exactly, character for character, from that one excerpt. Keep it short (one sentence or less). Never reword, shorten with "...", or join text from two excerpts.
 - Cite only excerpts you actually used. Do not add a marker without a matching citation.
-- If found is false, write one short sentence in "answer" saying the information is not in the documents, and leave "citations" empty."""
+- If found is false, write one short sentence in "answer" saying the information is not in the documents, and leave "citations" empty.
+- If found is true, write the answer in "answer". After each claim, add a marker that is the id of the excerpt supporting it. For example, a claim from <excerpt id="3"> gets the marker [3], even if it is the first marker in your answer.
+- Write "answer" as plain text. You may wrap the key fact in **double asterisks** for bold, but use no other markdown (no headings, lists, or links). Put [n] markers outside the bold, never inside it.
+"""
 
 SYSTEM_PROMPT = "\n\n".join([GROUNDING_RULES, INJECTION_DEFENSE, OUTPUT_FORMAT])
