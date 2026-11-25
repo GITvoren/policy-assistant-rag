@@ -32,14 +32,13 @@ export default function Sidebar({ isOpen, onClose }) {
 
       <p className="sidebar__note">
         Meridian answers based on the documents below. If the information isn&apos;t covered, it lets you know.
-
       </p>
 
       <h2 className="sidebar__label">
         Knowledge base · {DOCUMENTS.length} documents
       </h2>
       <p className="sidebar__hint">
-          Open any document to verify Meridian&apos;s answers. Public in this demo only.
+        Open any document to verify Meridian&apos;s answers. Public for <em>demo purposes</em> only.
       </p>
 
       <ul className="sidebar__docs">
@@ -51,8 +50,11 @@ export default function Sidebar({ isOpen, onClose }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>{doc.name}</span>
-              <span className="sidebar__pages">{doc.pages} p</span>
+              <span className="pdf-icon" aria-hidden="true">
+                <img src="/images/pdf-icon.png" alt="" />
+              </span>
+              <span className="sidebar__doc-name">{doc.name}</span>
+              <span className="sidebar__pages">{doc.pages} pgs</span>
             </a>
           </li>
         ))}

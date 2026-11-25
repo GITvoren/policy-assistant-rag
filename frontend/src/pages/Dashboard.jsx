@@ -57,7 +57,7 @@ export default function Dashboard() {
       )}
       <main className="dashboard__main">
         <header className="mobile-header">
-          <div>
+          <div onClick={() => setIsSidebarOpen(true)}>
             <p className="mobile-header__company">Tradewind Global, Inc.</p>
             <p className="mobile-header__title">
               <strong>Meridian</strong> Policy Assistant

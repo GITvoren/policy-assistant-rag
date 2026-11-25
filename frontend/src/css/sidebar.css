@@ -14,10 +14,13 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--blue);
+  padding-left: 12px;
+
 }
 
 .sidebar__brand {
   margin: 0;
+  padding-left: 12px;
 }
 
 .sidebar__logo {
@@ -31,6 +34,7 @@
   margin: 8px 0 0;
   font-size: 18px;
   color: var(--text-muted);
+  padding-left: 12px;
 }
 
 .sidebar__divider {
@@ -44,14 +48,16 @@
   margin: 0 0 24px;
   line-height: 1.5;
   color: var(--text-muted);
+  padding-left: 12px;
 }
 
 .sidebar__label {
   margin: 0 0 10px;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--blue);
+  padding-left: 12px;
 }
 
 .sidebar__docs {
@@ -60,9 +66,18 @@
   list-style: none;
 }
 
+.sidebar__docs > li {
+  display: flex;
+  align-items: center;
+}
+
 .sidebar__doc {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
   padding: 12px;
   border-radius: 12px;
   color: var(--text);
@@ -76,7 +91,40 @@
   color: var(--blue);
 }
 
+.pdf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.pdf-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sidebar__doc:hover .sidebar__doc-name{
+  color: #3c5ea8;
+}
+
+.sidebar__doc-name {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #2b416f;
+  font-weight: 500;
+  font-family: "Manrope";
+}
+
 .sidebar__pages {
+  flex-shrink: 0;
   color: var(--text-muted);
 }
 
@@ -84,6 +132,7 @@
   margin: auto 0 0;
   font-size: 13px;
   color: var(--text-muted);
+  padding-left: 12px;
 }
 
 .sidebar__hint {
@@ -91,6 +140,8 @@
   font-size: 13px;
   line-height: 1.4;
   color: var(--text-muted);
+  padding-left: 12px;
+  font-family: Segoe UI, sans-serif;
 }
 
 .sidebar__close {
@@ -111,11 +162,15 @@
     transition: transform 0.25s ease;
   }
 
-  .sidebar__note{
+  .sidebar__label{
+    font-size: 12px;
+  }
+
+  .sidebar__note {
     font-size: 14px;
   }
 
-  .sidebar__tagline{
+  .sidebar__tagline {
     font-size: 16px;
   }
 
@@ -123,11 +178,11 @@
     transform: translateX(0);
   }
 
-  .sidebar__logo{
+  .sidebar__logo {
     max-width: 180px;
   }
 
-  .sidebar__doc{
+  .sidebar__doc {
     font-size: 14px;
     padding: 8px;
   }

@@ -19,8 +19,12 @@ A wrong answer about pay, leave or expenses is worse than no answer. Language mo
 
 - Answers with inline citation markers ([1], [2]) that match expandable source cards
 - Several verified quotes can be stacked inside one source card
+- Key facts in an answer can appear in bold (the app renders a single `**bold**` pattern itself, with no markdown library)
 - A distinct "not found in documents" state
+- Starter question pills in a sideways-scrolling row
+- Loading and error states
 - Clickable document list that opens the source PDF, so users can check answers themselves
+- Responsive layout: on phones the sidebar becomes a slide-in drawer opened from a "5 docs" button
 - Prompt-injection defenses, tested with poisoned excerpts
 - Input validation and a generic error message for unexpected failures
 
@@ -118,9 +122,13 @@ There is no formal test suite yet. These scripts in `backend/` act as manual che
 |---|---|
 | `try_ask.py` | Questions that should be answered and questions that should be not found, run through `ask()` |
 | `try_inject.py` | Prompt-injection attempts hidden in fake excerpts |
-| `try_debug.py` | Prints every stage (retrieval, model output, verification) for one question |
+| `try_debug.py` | Prints every stage (retrieval, model output, verification) for one question. Pass the question as an argument, for example `python try_debug.py "How many sick days per month?"` |
 
-The model can't be given a temperature, so its output varies between runs. Run the question set several times, not once.
+The model can't be given a temperature, so its output varies between runs. Run the question set several times, not once. A quick repeat loop in Git Bash (`-a` stops grep treating the output as binary when it contains special characters):
+
+```bash
+for i in 1 2 3 4 5; do python try_debug.py "How many vacations leave do we have?" | grep -a renumbered; done
+```
 
 ## Project structure
 
@@ -144,16 +152,20 @@ policy-assistant-rag/
 
 ## Status
 
-- **Backend:** complete and tested.
-- **Frontend:** sidebar, chat input and the request round trip are working. Still in progress: the answer card with clickable citation badges, accordion source cards, the not-found card, starter question pills, and the mobile layout.
+- **Backend:** complete and tested, including a repeated-run check of the citation-marker fix.
+- **Frontend:** complete. Chat flow, answer and source cards, not-found card, starter questions, loading and error states, and the mobile layout are all working.
+- **Next:** hosting.
 
 ## Limitations
 
-- **Verification checks that a quote exists, not that it is true.** A fake rule planted in a document can't be detected, so control over which documents get ingested is part of the security model.
+- **Verification checks that a quote exists, not that it is true.** A fake rule planted in a document can't be detected, so control over which documents get ingested is part of the security model. It also checks quotes, not every claim in the answer text.
 - **Output varies between runs.** The chat model does not accept a custom temperature, so important guarantees live in code, and the question set should be run repeatedly.
-- **No rate limiting or authentication.** This is a local demo. Before any public deployment, add rate limiting (for example Flask-Limiter), set a spending cap in the OpenAI dashboard, and serve confidential documents behind authentication.
+- **No memory between questions.** Each question is answered on its own, so a follow-up like "and what about part-time?" won't work. Chat history lives only in the browser tab and is cleared on refresh.
+- **Greetings and small talk show the not-found card.** The app has two states only (a cited answer or not found), on purpose, so everything goes through the strict "only from the documents" path.
+- **No rate limiting or authentication.** This was built as a local demo. Before any public deployment, add rate limiting (for example Flask-Limiter), set a spending cap in the OpenAI dashboard, turn off Flask debug mode, and serve confidential documents behind authentication.
 - **The policy PDFs are served publicly from the frontend on purpose**, so users can verify answers. That is fine only because the documents are fictional.
 - **Chunk size (1000, overlap 150) and `TOP_K` (4) are starting values.** Multi-part questions may need tuning.
+- **Flask's development server is not built for real traffic.**
 
 ## Security notes
 
