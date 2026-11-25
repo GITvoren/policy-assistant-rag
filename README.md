@@ -1,13 +1,15 @@
 
 # Meridian: Retrieval-Augmented Generation (RAG) Policy Assistant
 
-**Retrieval-Augmented Generation (RAG) · LLM Integration · Vector Database Architecture · Verified AI Citations**
+**RAG Architecture · LLM Integration · Semantic Search · Vector Databases · Structured AI Outputs · Verified Citations**
 
-Meridian is an AI-powered policy and onboarding assistant built using a **Retrieval-Augmented Generation (RAG) architecture**. It integrates large language models with semantic search and Chroma vector storage to retrieve relevant information from policy documents and generate context-aware answers grounded in source material.
+Meridian is an AI-powered policy and onboarding assistant built around a **Retrieval-Augmented Generation (RAG) architecture**. It combines large language models, semantic search, and vector database retrieval to generate context-aware answers grounded exclusively in company policy documents.
 
-Built with **Python, LangChain, OpenAI, and ChromaDB**, Meridian features a document ingestion pipeline, embedding generation, semantic retrieval, structured LLM responses, and programmatic citation verification to ensure answers remain traceable to their original sources.
+Built with **Python, Flask, LangChain, OpenAI, and ChromaDB**, Meridian implements an end-to-end RAG pipeline featuring PDF ingestion, document chunking, embedding generation, vector storage, and semantic retrieval. Retrieved document excerpts are passed to an OpenAI language model using structured Pydantic outputs, ensuring responses follow a defined format.
 
-Rather than relying on the language model's general knowledge, Meridian answers exclusively from five loaded policy PDFs. Every response includes numbered citations linked to source cards containing the original filename, page number, and verified document excerpts. When relevant information cannot be found, the system explicitly indicates that instead of generating an unsupported answer.
+Beyond retrieval and generation, Meridian implements **programmatic citation verification** to validate generated quotes against their original retrieved document chunks. Verified citations are mapped to their source filenames and page numbers, while unsupported or unverifiable answers are handled through a dedicated not-found response.
+
+Every answer is traceable to its source material, allowing users to inspect the original document excerpts and independently verify the information provided.
 
 > Portfolio demo. All documents are fictional.
 
