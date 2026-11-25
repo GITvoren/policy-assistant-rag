@@ -10,10 +10,12 @@ import UserMessage from "../components/UserMessage";
 import { askQuestion } from "../utilities/api";
 import ErrorMessage from "../components/ErrorMessage";
 import LoadingMessage from "../components/LoadingMessage";
+import StarterQuestions from "../components/StarterQuestions";
 
 export default function Dashboard() {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const bottomRef = useRef(null);
 
@@ -46,8 +48,29 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      {isSidebarOpen && (
+        <div
+          className="dashboard__backdrop"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
       <main className="dashboard__main">
+        <header className="mobile-header">
+          <div>
+            <p className="mobile-header__company">Tradewind Global, Inc.</p>
+            <p className="mobile-header__title">
+              <strong>Meridian</strong> Policy Assistant
+            </p>
+          </div>
+          <button
+            type="button"
+            className="dashboard__docs-button"
+            onClick={() => setIsSidebarOpen(true)}
+          >
+            5 docs
+          </button>
+        </header>
         <div className="dashboard__messages">
           {messages.map((message) => {
             if (message.role === "assistant") {
@@ -76,6 +99,7 @@ export default function Dashboard() {
           {isLoading && <LoadingMessage />}
           <div ref={bottomRef} />
         </div>
+        <StarterQuestions onPick={handleSend} disabled={isLoading} />
         <ChatInput onSend={handleSend} disabled={isLoading} />
       </main>
     </div>

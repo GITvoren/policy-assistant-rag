@@ -1,0 +1,55 @@
+.starter-questions {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+}
+
+.starter-questions__pill {
+  padding: 12px 22px;
+  background: var(--surface);
+  border: 1px solid var(--blue);
+  border-radius: var(--radius-pill);
+  color: var(--blue);
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  scroll-snap-align: start;
+}
+
+.starter-questions__pill:hover:not(:disabled) {
+  background: var(--blue-tint);
+}
+
+.starter-questions__pill:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.starter-questions {
+  scrollbar-width: thin;
+  scrollbar-color: var(--blue) var(--surface-soft);
+}
+
+.starter-questions::-webkit-scrollbar {
+  height: 8px;
+}
+
+.starter-questions::-webkit-scrollbar-track {
+  background: var(--surface-soft);
+  border-radius: var(--radius-pill);
+}
+
+.starter-questions::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: var(--radius-pill);
+}
+
+.starter-questions::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-hover);
+}

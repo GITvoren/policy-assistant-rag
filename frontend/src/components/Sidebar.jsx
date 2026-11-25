@@ -10,9 +10,17 @@ const DOCUMENTS = [
   { name: "Onboarding-Checklist.pdf", pages: 3 },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? "sidebar--open" : ""}`}>
+      <button
+        type="button"
+        className="sidebar__close"
+        onClick={onClose}
+        aria-label="Close documents"
+      >
+        ×
+      </button>
       <p className="sidebar__company">Tradewind Global, Inc.</p>
 
       <h1 className="sidebar__brand">
