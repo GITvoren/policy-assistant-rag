@@ -1,3 +1,6 @@
+# --- stdlib ---
+import os
+
 # --- third-party ---
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -6,7 +9,9 @@ from flask_cors import CORS
 from rag import ask
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"])
+
+ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+CORS(app, origins=ALLOWED_ORIGINS)
 
 MAX_QUESTION_LENGTH = 500
 
@@ -31,4 +36,4 @@ def ask_route():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=os.environ.get("FLASK_DEBUG") == "1")
