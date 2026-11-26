@@ -33,7 +33,7 @@
 
 .starter-questions {
   scrollbar-width: thin;
-  scrollbar-color: var(--blue) var(--surface-soft);
+  scrollbar-color: #4367a7 var(--surface-soft);
 }
 
 .starter-questions::-webkit-scrollbar {
