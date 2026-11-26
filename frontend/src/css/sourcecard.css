@@ -21,18 +21,18 @@
 
 .source-card__number {
   color: var(--blue);
-  font-size: 18px;
+  font-size: 12px;
 }
 
 .source-card__file {
   color: var(--text);
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .source-card__page {
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .source-card__quotes {
@@ -48,7 +48,7 @@
   background: var(--surface-soft);
   border-left: 4px solid var(--blue);
   color: var(--text);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.6;
 }
 

@@ -59,7 +59,8 @@
 }
 
 .dashboard__messages {
-  scrollbar-color: #4367a7 var(--surface-soft);
+  scrollbar-width: thin;
+  scrollbar-color: var(--blue) var(--surface-soft);
 }
 
 .dashboard__messages::-webkit-scrollbar {
