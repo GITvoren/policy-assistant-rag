@@ -58,6 +58,28 @@
   display: none;
 }
 
+.dashboard__messages {
+  scrollbar-color: #5b79af var(--surface-soft);
+}
+
+.dashboard__messages::-webkit-scrollbar {
+  height: 8px;
+}
+
+.dashboard__messages::-webkit-scrollbar-track {
+  background: var(--surface-soft);
+  border-radius: var(--radius-pill);
+}
+
+.dashboard__messages::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: var(--radius-pill);
+}
+
+.dashboard__messages::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-hover);
+}
+
 
 @media (max-width: 768px) {
   .dashboard {
